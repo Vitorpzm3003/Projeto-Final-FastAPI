@@ -14,13 +14,13 @@ class Usuario(Base):
     __tablename__ = "usuarios"
 
     id = Column("id", Integer, primary_key=True, autoincrement=True)
-    nome = Column("nome", String, nullable=False)
+    nome = Column("nome", String)
     email = Column("email", String, nullable=False)
-    senha = Column("senha", String, nullable=False)
-    status = Column("status", Boolean, nullable=False, default= True)
-    nivel = Column("nivel", Boolean, nullable=False, default= False)
+    senha = Column("senha", String)
+    status = Column("status", Boolean, default= True)
+    nivel = Column("nivel", Boolean, default= False)
 
-    def __init__(self, nome, email, senha, status, nivel):
+    def __init__(self, nome, email, senha, status = True, nivel = False):
         self.nome = nome
         self.email = email
         self.senha = senha
