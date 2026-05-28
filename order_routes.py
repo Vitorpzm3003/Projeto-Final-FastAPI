@@ -9,7 +9,7 @@ order_router = APIRouter(prefix="/orders", tags=["orders"])
 @order_router.get("/")
 async def getList():
     """
-    Essa é a rota padrao de pedidos.  Todas as rotas de orders precisam de autenticação
+    rota padrao de pedidos
     """
     return {"mensagem": "Lista de pedidos"}
 
