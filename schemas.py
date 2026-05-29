@@ -25,3 +25,12 @@ class loginSchema(BaseModel):
 
     class Config:
         from_attributes = True
+
+class ItemPedidoSchema(BaseModel):
+    quantidade: int
+    tipo: str
+    precoUnitario: float
+
+    class Config:
+        from_attributes = True
+    
