@@ -20,7 +20,7 @@ async def createOrder(order_schema: OrderSchema, session: Session = Depends(pega
     session.commit()
     return {f"Pedido criado com sucesso. ID do pedido: {newOrder.id}"}
 
-@order_router.post("/order/cancelar/{id_pedido}")
+@order_router.post("/order/cancel/{id_pedido}")
 async def cancel(id_pedido:int, session: Session = Depends(pegar_sessao), usuario: Usuario = Depends(verificar_token)):
 
     pedido = session.query(Pedido).filter(Pedido.id == id_pedido).first()
@@ -36,7 +36,7 @@ async def cancel(id_pedido:int, session: Session = Depends(pegar_sessao), usuari
     }
 
 @order_router.get("/list")
-async def Listar(session: Session = Depends(pegar_sessao), usuario: Usuario = Depends(verificar_token)):
+async def List(session: Session = Depends(pegar_sessao), usuario: Usuario = Depends(verificar_token)):
     if usuario.nivel == False:
         raise HTTPException(status_code=401, detail="Acesso negado")
     else:
@@ -63,4 +63,50 @@ async def add(id_pedido: int, item: ItemPedidoSchema, session: Session = Depends
         "item_id": item_pedido.id,
         "preco": pedido.preco
     }
-    
+
+
+@order_router.post("/order/removeItem/{id_item_pedido}")
+async def remove(id_item_pedido: int, session: Session = Depends(pegar_sessao), usuario: Usuario = Depends(verificar_token)):
+    item_pedido = session.query(ItemPedido).filter(ItemPedido.id == id_item_pedido).first()
+    pedido = session.query(Pedido).filter(Pedido.id == item_pedido.pedido).first()
+    if not item_pedido:
+        raise HTTPException(status_code=400, detail="item inexistente")
+    if not usuario.nivel and usuario.id != pedido.usuario:
+        raise HTTPException(status_code=401, detail="Acesso negado")
+    session.delete(item_pedido)
+    pedido.calc_preco()
+    session.commit()
+    return{
+        "mensagem": "Item removido com sucesso",
+        "preco_pedido": pedido.preco,
+        "pedido": item_pedido.pedido
+    }    
+
+#Finalizar pedido
+@order_router.post("/order/final/{id_pedido}")
+async def Final_Order(id_pedido:int, session: Session = Depends(pegar_sessao), usuario: Usuario = Depends(verificar_token)):
+
+    pedido = session.query(Pedido).filter(Pedido.id == id_pedido).first()
+    if not pedido:
+        raise HTTPException(status_code=400, detail="pedido nao encontrado")
+    if not usuario.nivel and usuario.id != pedido.usuario:
+        raise HTTPException(status_code=401, detail="Acesso negado")
+    pedido.status = "FINALIZADO"
+    session.commit()
+    return {
+        "mensagem": f"O pedido {pedido.id} FINALIZADO com sucesso",
+        "pedido": pedido
+    }
+
+#Visualizar pedido especifico
+@order_router.get("/order/{id_pedido}")
+async def getOrder(id_pedido: int, session: Session = Depends(pegar_sessao), usuario: Usuario = Depends(verificar_token)):
+    pedido = session.query(Pedido).filter(Pedido.id == id_pedido).first()
+    if not pedido:
+        raise HTTPException(status_code=400, detail="pedido nao encontrado")
+    if not usuario.nivel and usuario.id != pedido.usuario:
+        raise HTTPException(status_code=401, detail="Acesso negado")
+    return{
+        "quantidade_items": len(pedido.itens),
+        "pedido": pedido
+    }
