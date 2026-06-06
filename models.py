@@ -42,6 +42,7 @@ class Pedido(Base):
     status = Column("status", String)
     usuario = Column("usuario", ForeignKey("usuarios.id"))
     preco = Column("preco", Float, nullable=False)
+    forma_pagamento = Column("forma_pagamento", String, nullable=True)
     itens = relationship("ItemPedido", cascade="all, delete")
 
     def __init__(self,usuario,status="PENDENTE",preco=0):
@@ -67,3 +68,18 @@ class ItemPedido(Base):
         self.tipo = tipo
         self.precoUnitario = precoUnitario
         self.pedido = pedido
+
+class Produto(Base):
+    __tablename__ = "produtos"
+    
+    id = Column("id", Integer, primary_key=True, autoincrement=True)
+    nome = Column("nome", String, nullable=False)
+    preco = Column("preco", Float, nullable=False)
+    ativo = Column("ativo", Boolean, default=True)
+
+    def __init__(self, nome, preco, ativo=True):
+        self.nome = nome
+        self.preco = preco
+        self.ativo = ativo
+
+Base.metadata.create_all(db)

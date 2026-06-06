@@ -1,0 +1,228 @@
+:root {
+    --primary-color: #6366f1;
+    --primary-hover: #4f46e5;
+    --bg-color: #0f172a;
+    --card-bg: rgba(30, 41, 59, 0.7);
+    --text-color: #f8fafc;
+    --text-muted: #94a3b8;
+    --border-color: rgba(255, 255, 255, 0.1);
+    --success: #10b981;
+    --danger: #ef4444;
+    --warning: #f59e0b;
+}
+
+body {
+    background-color: var(--bg-color);
+    background-image: 
+        radial-gradient(at 40% 20%, hsla(253,16%,7%,1) 0px, transparent 50%),
+        radial-gradient(at 80% 0%, hsla(189,100%,56%,0.15) 0px, transparent 50%),
+        radial-gradient(at 0% 50%, hsla(355,100%,93%,0.05) 0px, transparent 50%);
+    background-attachment: fixed;
+    font-family: 'Inter', sans-serif;
+    color: var(--text-color);
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+}
+
+/* Glassmorphism Navbar */
+.navbar {
+    background: rgba(15, 23, 42, 0.8) !important;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border-color);
+}
+.navbar-brand, .nav-link {
+    color: var(--text-color) !important;
+}
+.nav-link.active {
+    color: #818cf8 !important;
+    font-weight: 600;
+}
+
+/* Cards */
+.card {
+    background: var(--card-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--border-color) !important;
+    border-radius: 1rem;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    color: var(--text-color);
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2)!important;
+    border-color: rgba(255,255,255,0.2) !important;
+}
+
+/* Buttons */
+.btn-primary {
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-hover));
+    border: none;
+    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+    transition: all 0.3s ease;
+    color: white;
+}
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(99, 102, 241, 0.6);
+    color: white;
+}
+.btn-outline-primary {
+    color: #818cf8;
+    border-color: #818cf8;
+}
+.btn-outline-primary:hover {
+    background-color: #818cf8;
+    color: #fff;
+}
+
+.btn-success {
+    background: linear-gradient(135deg, #10b981, #059669);
+    border: none;
+    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+}
+.btn-success:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.6);
+}
+
+.btn-outline-danger {
+    color: #f87171;
+    border-color: #f87171;
+}
+.btn-outline-danger:hover {
+    background-color: #f87171;
+    color: #fff;
+}
+
+
+/* Tables */
+.table {
+    color: var(--text-color);
+    background: transparent;
+}
+.table-light {
+    background: rgba(255,255,255,0.05);
+    color: var(--text-color);
+}
+.table > :not(caption) > * > * {
+    padding: 1.2rem 1rem;
+    border-bottom-color: var(--border-color);
+    background: transparent;
+    color: var(--text-color);
+}
+.table-hover > tbody > tr:hover > * {
+    background: rgba(255,255,255,0.02);
+    color: var(--text-color);
+}
+.table-responsive {
+    background: var(--card-bg) !important;
+    backdrop-filter: blur(16px);
+    border: 1px solid var(--border-color) !important;
+}
+
+/* Inputs */
+input.form-control, select.form-select, input[type="email"], input[type="password"], input[type="number"], input[type="text"] {
+    background-color: rgba(15, 23, 42, 0.5) !important;
+    border: 1px solid var(--border-color) !important;
+    color: var(--text-color) !important;
+    padding: 0.75rem 1rem;
+    border-radius: 0.75rem;
+}
+input.form-control:focus, select.form-select:focus {
+    background-color: rgba(15, 23, 42, 0.8) !important;
+    border-color: var(--primary-color) !important;
+    box-shadow: 0 0 0 0.25rem rgba(99, 102, 241, 0.25) !important;
+    color: var(--text-color) !important;
+}
+.form-label {
+    color: var(--text-muted);
+}
+
+/* View Sections & Animations */
+.view-section {
+    animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Badges */
+.status-badge {
+    padding: 0.4em 0.8em;
+    font-size: 0.75em;
+    font-weight: 600;
+    border-radius: 50rem;
+    letter-spacing: 0.5px;
+}
+.status-pendente { background: rgba(245, 158, 11, 0.2); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.3); }
+.status-finalizado { background: rgba(16, 185, 129, 0.2); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.3); }
+.status-cancelado { background: rgba(239, 68, 68, 0.2); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.3); }
+
+/* Modals */
+.modal-content {
+    background: #1e293b;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    color: var(--text-color);
+}
+.modal-header, .modal-footer {
+    border-color: var(--border-color);
+}
+.btn-close {
+    filter: invert(1) grayscale(100%) brightness(200%);
+}
+.bg-light {
+    background-color: rgba(0,0,0,0.2) !important;
+}
+.text-muted {
+    color: var(--text-muted) !important;
+}
+.text-primary {
+    color: #818cf8 !important;
+}
+
+/* Item Rows in Modal */
+.item-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8rem 0;
+    border-bottom: 1px solid var(--border-color);
+}
+.item-row:last-child {
+    border-bottom: none;
+}
+
+/* Fix text colors */
+h1, h2, h3, h4, h5, h6 {
+    color: var(--text-color);
+}
+.bg-white {
+    background-color: transparent !important;
+}
+
+/* Checkbox Label */
+.form-check-label {
+    color: var(--text-color);
+}
+
+/* Labels on buttons radio */
+.btn-check:checked + .btn-outline-primary {
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+.btn-check:active + .btn-outline-primary, .btn-check:checked + .btn-outline-primary:focus {
+    box-shadow: 0 0 0 0.25rem rgba(99, 102, 241, 0.5);
+}
+
+.text-dark {
+    color: var(--text-color) !important;
+}
+
